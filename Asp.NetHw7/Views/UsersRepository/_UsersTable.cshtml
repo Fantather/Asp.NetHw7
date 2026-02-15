@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Asp.NetHw7.Models.User>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="5">User list</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                <td>@Html.DisplayFor(modelItem => item.Salary)</td>
+                <td>@Html.DisplayFor(modelItem => item.Position)</td>
+            </tr>
+        }
+    </tbody>
+</table>

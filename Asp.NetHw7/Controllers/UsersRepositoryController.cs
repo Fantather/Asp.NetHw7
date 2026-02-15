@@ -1,5 +1,6 @@
 ﻿using Asp.NetHw7.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace Asp.NetHw7.Controllers
 {
@@ -11,16 +12,16 @@ namespace Asp.NetHw7.Controllers
             _usersRepository = usersRepsitory;
         }
 
-        public IActionResult Index(string name, string position)
+        public IActionResult Index(string name, string position, string[] sortBy)
         {
-            IEnumerable<User> users = _usersRepository.GetAll();
+            var users = _usersRepository.GetFilteredAndSortedUsers(name, position, sortBy);
 
-            if (!string.IsNullOrWhiteSpace(name))
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                users.
+                return PartialView("_UsersTable", users);
             }
 
-            return View(users);
+            return View("Index", users);
         }
     }
 }

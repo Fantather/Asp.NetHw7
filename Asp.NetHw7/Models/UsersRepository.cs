@@ -34,5 +34,55 @@
         {
             return _users.Values.OrderBy(user => user.Salary);
         }
+
+
+        // Чем я занимаюсь :/
+        // Применяет разные сортировки одновременно
+        public IEnumerable<User> GetFilteredAndSortedUsers(string name, string position, string[] sortBy)
+        {
+            IEnumerable<User> query = _users.Values;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(u => u.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(position))
+            {
+                query = query.Where(u => u.Position.Contains(position, StringComparison.OrdinalIgnoreCase));
+            }
+
+
+            // Применяю множественную сортировку, если массив не пуст
+            if (sortBy != null && sortBy.Length > 0)
+            {
+                IOrderedEnumerable<User> orderedQuery = null;
+
+                foreach (string sortParam in sortBy)
+                {
+                    if (sortParam == "Age")
+                    {
+                        // Если это первая сортировка — использую OrderBy, если вторичная — ThenBy
+                        orderedQuery = orderedQuery == null
+                            ? query.OrderBy(u => u.Age)
+                            : orderedQuery.ThenBy(u => u.Age);
+                    }
+                    else if (sortParam == "Salary")
+                    {
+                        orderedQuery = orderedQuery == null
+                            ? query.OrderBy(u => u.Salary)
+                            : orderedQuery.ThenBy(u => u.Salary);
+                    }
+                }
+
+                // Если сортировка была применена, перезаписываю основной запрос
+                if (orderedQuery != null)
+                {
+                    query = orderedQuery;
+                }
+            }
+
+            return query;
+        }
     }
 }

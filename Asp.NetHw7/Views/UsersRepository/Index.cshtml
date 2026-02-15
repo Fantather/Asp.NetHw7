@@ -28,22 +28,35 @@
 
     <button type="submit">Применить</button>
 </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th colspan="5">User list</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Age)</td>
-                <td>@Html.DisplayFor(modelItem => item.Salary)</td>
-                <td>@Html.DisplayFor(modelItem => item.Position)</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<br />
+
+<div id="tableContainer">
+    <partial name="_UsersTable" model="Model" />
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#searchForm').on('submit', function (e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var url = form.attr('action');
+                var data = form.serialize();
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data: data,
+                    success: function (result) {
+                        $('#tableContainer').html(result);
+                    }
+                });
+            });
+
+            $('input[type=checkbox][name=sortBy]').change(function() {
+            $('#searchForm').submit();
+        });
+        });
+    </script>
+}
