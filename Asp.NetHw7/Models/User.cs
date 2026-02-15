@@ -8,8 +8,9 @@
         public decimal Salary { get; set; }
         public string Position { get; set; }
 
-        public User(string name, int age, decimal salary, string position)
+        public User(int id, string name, int age, decimal salary, string position)
         {
+            Id = id;
             Name = name;
             Age = age;
             Salary = salary;

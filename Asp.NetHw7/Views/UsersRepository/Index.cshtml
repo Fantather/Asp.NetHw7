@@ -6,9 +6,20 @@
 
 <h1>View</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form action="/UsersRepository/SearchByName">
+    <label name="Name">Поиск по имени: </label>
+    <input type="text" name="name" value="" />
+    <button type="submit">Поиск</button>
+</form>
+<form action="/UsersRepository/SearchByPosition">
+    <label name="Position">Поиск по должности: </label>
+    <input type="text" name="position" value="" />
+    <button type="submit">Поиск</button>
+</form>
+<div>
+    <a href="/UsersRepository/SortByAge">Сортировка по Возрасту</a> |
+    <a href="/UsersRepository/SortBySalary">Сортировка по Зарплате</a>
+</div>
 <table class="table">
     <thead>
         <tr>

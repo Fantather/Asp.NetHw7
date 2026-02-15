@@ -13,7 +13,27 @@ namespace Asp.NetHw7.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_usersRepository.Users);
+        }
+
+        public IActionResult SearchByName(string name)
+        {
+            return View("Index", _usersRepository.SearchByName(name));
+        }
+
+        public IActionResult SearchByPosition(string position)
+        {
+            return View("Index", _usersRepository.SearchByPosition(position));
+        }
+
+        public IActionResult SortByAge()
+        {
+            return View("Index", _usersRepository.SortByAge());
+        }
+
+        public IActionResult SortBySalary()
+        {
+            return View("Index", _usersRepository.SortBySalary());
         }
     }
 }

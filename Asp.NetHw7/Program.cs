@@ -25,7 +25,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=UsersRepositoryController}/{action=Index}")
+    pattern: "{controller=UsersRepository}/{action=Index}")
     .WithStaticAssets();
 
 
