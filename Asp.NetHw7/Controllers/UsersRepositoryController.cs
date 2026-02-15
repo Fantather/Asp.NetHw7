@@ -11,29 +11,16 @@ namespace Asp.NetHw7.Controllers
             _usersRepository = usersRepsitory;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string name, string position)
         {
-            return View(_usersRepository.Users);
-        }
+            IEnumerable<User> users = _usersRepository.GetAll();
 
-        public IActionResult SearchByName(string name)
-        {
-            return View("Index", _usersRepository.SearchByName(name));
-        }
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                users.
+            }
 
-        public IActionResult SearchByPosition(string position)
-        {
-            return View("Index", _usersRepository.SearchByPosition(position));
-        }
-
-        public IActionResult SortByAge()
-        {
-            return View("Index", _usersRepository.SortByAge());
-        }
-
-        public IActionResult SortBySalary()
-        {
-            return View("Index", _usersRepository.SortBySalary());
+            return View(users);
         }
     }
 }

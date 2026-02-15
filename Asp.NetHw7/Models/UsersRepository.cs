@@ -3,7 +3,6 @@
     public class UsersRepository
     {
         private readonly Dictionary<int, User> _users = new Dictionary<int, User>();
-        public IEnumerable<User> Users { get { return _users.Values; } }
 
         public UsersRepository()
         {
@@ -13,6 +12,8 @@
             _users.Add(4, new User(4, "Елена", 27, 3000m, "QA Engineer"));
             _users.Add(5, new User(5, "Дмитрий", 32, 7000m, "Team Lead"));
         }
+
+        public IEnumerable<User> GetAll() => _users.Values;
 
         public IEnumerable<User> SearchByName(string name)
         {

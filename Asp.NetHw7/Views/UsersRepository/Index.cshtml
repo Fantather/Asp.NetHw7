@@ -4,47 +4,46 @@
     ViewData["Title"] = "View";
 }
 
-<h1>View</h1>
+<h1>Search user</h1>
+<form id="searchForm" asp-controller="UsersRepository" asp-action="Index" method="get">
+    <div>
+        <label>Имя: </label>
+        <input type="text" name="name" value="" />
+    </div>
 
-<form action="/UsersRepository/SearchByName">
-    <label name="Name">Поиск по имени: </label>
-    <input type="text" name="name" value="" />
-    <button type="submit">Поиск</button>
+    <div>
+        <label>Должность: </label>
+        <input type="text" name="position" value="" />
+    </div>
+
+    <div>
+        <span>Сортировка:</span>
+        <label>
+            <input type="checkbox" name="sortBy" value="Age" /> По Возрасту
+        </label>
+        <label>
+            <input type="checkbox" name="sortBy" value="Salary" /> По Зарплате
+        </label>
+    </div>
+
+    <button type="submit">Применить</button>
 </form>
-<form action="/UsersRepository/SearchByPosition">
-    <label name="Position">Поиск по должности: </label>
-    <input type="text" name="position" value="" />
-    <button type="submit">Поиск</button>
-</form>
-<div>
-    <a href="/UsersRepository/SortByAge">Сортировка по Возрасту</a> |
-    <a href="/UsersRepository/SortBySalary">Сортировка по Зарплате</a>
-</div>
 <table class="table">
     <thead>
         <tr>
-            User list
+            <th colspan="5">User list</th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Salary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Position)
-                </td>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                <td>@Html.DisplayFor(modelItem => item.Salary)</td>
+                <td>@Html.DisplayFor(modelItem => item.Position)</td>
             </tr>
-    }
+        }
     </tbody>
 </table>
